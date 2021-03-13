@@ -53,6 +53,9 @@
       (if (eql (first abierto) nodo-final)
           (setf nodo-actual (first abierto))
           (setf nodo-actual
+                ; (if (eql (first abierto) (meta))	
+                      ;(first abierto)
+                      ;(Buscar-mejor (first abierto)(rest abierto)) ) )
                 (Buscar-mejor (first abierto)             ; ¡FUNCIÓN RECURSIVA PARA BUSCAR UN NODO CON MENOR F!
                               (rest abierto))))
 
@@ -144,6 +147,21 @@
 ; ;;;;;;;;;;;;;;;;;;;;;;
 ; **** BUSCAR-MEJOR ****
 ; ;;;;;;;;;;;;;;;;;;;;;;
+; // Aquí, meta es equivalente al nodo final. Usar cualquiera que esté disponible
+(defun Buscar-mejor (lst)	; Regresa el mejor nodo en "lst" para la expansión
+(cond 
+	((null lst))
+        ((< (get-f)(get-f (first lst))))
+        ((eql (first lst) (meta))
+         (first lst) )
+        (t (Buscar-mejor (rest lst))) ) )
+
+; (defun Buscar-mejor (elt lst)		; Misma función usando elt
+; (cond ((null lst) elt)
+;	((< (get-f elt)(get-f (first lst)))elt)
+;        ((eql (first lst) (meta))
+;         (first lst) )
+;        (t (Buscar-mejor elt (rest lst))) ) )
 
 ; ;;;;;;;;;;;;;;;;
 ; **** COLOCA ****
@@ -156,6 +174,13 @@
 ; ;;;;;;;;;;;;;;;;;;;;;;
 ; **** CAMINO-FINAL ****
 ; ;;;;;;;;;;;;;;;;;;;;;;
+
+; // Recibe el nodo actual (supuestamente el nodo final) y crea una lista n
+; // añadiendo los nodos previos.
+(defun camino-final (n)		; Regresa una lista con el nodo inicial hasta la meta
+(cond ((null n) nil)	
+	(t (append (camino-final (get-ancestro n))
+	(list n) )) ) )
 
 ; ;;;;;;;;;;;;;;;;;;;;;
 ; **** ACTUALIZA-F ****
