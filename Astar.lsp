@@ -74,7 +74,7 @@
 
           (progn                                          ; Si es TRUE :
 
-           ;(increment-count)                             ; ¿LLEVAREMOS LA CUENTA DE LOS NODOS?
+           (incrementa-cuentaNodos)                       ; aumenta un nodo a la cuenta
             (set-g sucesor
                 (calcular-g sucesor nodo-actual))         ; Calculamos el valor g del nodo sucesor
             (set-f sucesor
@@ -87,11 +87,12 @@
 
              (nuevo-f (if ans-anterior                    ; Reviso si es el nodo inicial (que no tiene ancestro)
 
-                       (actualiza-f sucesor               ; Si tenía ancestro calculo el costo si llegara
-                                    ans-anterior          ; a este nodo por medio de este otro nodo-ancestro
-                                    nodo-actual)          ; ¡FUNCIÓN PARA BUSCAR EL F CON ESTE NODO COMO ANCESTRO!
-
-                       (get-f sucesor))))                 ; Si no, regreso el f del nodo inical
+                       (+ (- (get-f sucesor)
+                              (get-g ans-anterior)
+                              (arc-dist ans-anterior sucesor) )
+                           (get-g nodo-actual)
+                           (arc-dist nodo-actual sucesor) )
+                        (get-f sucesor) ) ) )
 
             (if (< nuevo-f (get-f sucesor))               ; En caso de que sea menor el nuevo-f que el anterior
                 (progn
@@ -131,21 +132,38 @@
 ; ;;;;;;;;;;;;;;
 ; **** META ****
 ; ;;;;;;;;;;;;;;
+;;; variable local de la meta.
+(let (meta)
+  (defun set-meta (la-meta) (setf meta la-meta))
+  (defun get-meta () meta) )
 
 ; ;;;;;;;;;;;;;;;;;;;;
 ; **** CALCULAR-F ****
 ; ;;;;;;;;;;;;;;;;;;;;
-
+(defun calcular-f (n)
+  "Genera el valor de F para el nodo N. Es la suma de G y H"
+  (+ (get-g n) (h n)) )
 ; ;;;;;;;;;;;;;;;;;;;;
 ; **** CALCULAR-G ****
 ; ;;;;;;;;;;;;;;;;;;;;
+(defun calcular-g (nodo x)
+  "Genera la distancia de los nodos desde el raiz hasta el X al añadirle la distancia x-nodo a la del x-raiz"
+  (+ (get-g x) (arc-dist x nodo)) )
+
 
 ; ;;;;;;;;;;;;;;;;;;;;;;
-; **** ¿CALCULAR-H? ****
+; **** CALCULAR-H ****
 ; ;;;;;;;;;;;;;;;;;;;;;;
+(defun h (n)
+  "Genera un estimado de la distancia con la distancia euclidiana (toeréma de pitágoras)"
+  (+ (* (-root_x n_x) (-root_x n_x) ) ( * (-root_y n_y) (-root_y n_y) ))
 
+(defun arc-dist (n1 n2) 
+  "Returns the distance along arc N1 N2. If no such arc
+   exists, returns BIG-DISTANCE."
+  (or (rest (assoc n1 (get-distances n2))) big-distance) )
 ; ;;;;;;;;;;;;;;;;;;;;;;
-; **** BUSCAR-MEJOR ****
+; **** BUSCAR-MEJOR **** Rodrigo
 ; ;;;;;;;;;;;;;;;;;;;;;;
 ; // Aquí, meta es equivalente al nodo final. Usar cualquiera que esté disponible
 (defun Buscar-mejor (lst)	; Regresa el mejor nodo en "lst" para la expansión
@@ -166,13 +184,18 @@
 ; ;;;;;;;;;;;;;;;;
 ; **** COLOCA ****
 ; ;;;;;;;;;;;;;;;;
-; NOTA: DEBE DE
-;       MANTENER
-;       ABIERTO
-;       ORDENADO
+;;; Pone al nodo en abierto, manteniendola ordenada por valor f
+(defun coloca (nodo lst)
+  "Pone al nodo en abierto (lista lst), manteniendola ordenada por valor f"
+  (cond ((null lst)(list nodo))
+        ((< (get-f nodo)
+            (get-f (first lst)) )
+         (cons nodo lst) )
+        (t (cons (first lst)
+                 (coloca nodo (rest lst)) )) ) )
 
 ; ;;;;;;;;;;;;;;;;;;;;;;
-; **** CAMINO-FINAL ****
+; **** CAMINO-FINAL **** Rodrigo
 ; ;;;;;;;;;;;;;;;;;;;;;;
 
 ; // Recibe el nodo actual (supuestamente el nodo final) y crea una lista n
@@ -189,3 +212,12 @@
 ; ;;;;;;;;;;;;;;;;;;;;;;
 ; **** NUMERO-NODOS ****
 ; ;;;;;;;;;;;;;;;;;;;;;;
+
+(let (NUMERO-NODOS)
+  (defun iniciar-cuentaNodos () (setf NUMERO-NODOS 0))
+  (defun incrementa-cuentaNodos () (incf NUMERO-NODOS))
+  (defun get-numeroNodos () NUMERO-NODOS) )
+
+
+;;; Distancia imposible
+(defconstant distanciaImpoible 9999999)
