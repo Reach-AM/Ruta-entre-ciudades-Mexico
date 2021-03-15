@@ -13,18 +13,31 @@
   (defun set-ancestro (x y) (setf (gethash x caminos) y))
   (defun get-ancestro (x) (gethash x caminos)))
 
-;Ciudades de Ciudad de Mexico
-(set-distancia 'CDMX '((Iztapalapa . 14)(GustavoAMadero . 9)(MagdalenaContreras . 27)(MilpaAlta . 39)(Azcapotzalco . 13)(VenustianoCarranza . 7)(MiguelHidalgo . 9)(Coyoacan . 13)(AlvaroObregon . 16)))
-(set-distancia 'Iztapalapa '((CDMX . 14)(GustavoAMadero . 20)(MagdalenaContreras . 25)(MilpaAlta . 32)(Azcapotzalco . 26)(VenustianoCarranza . 11)(MiguelHidalgo . 21)(Coyoacan . 11)(AlvaroObregon . 19)))
-(set-distancia 'GustavoAMadero '((CDMX . 9)(Iztapalapa . 20)(MagdalenaContreras . 35)(MilpaAlta . 50)(Azcapotzalco . 15)(VenustianoCarranza . 11)(MiguelHidalgo . 15)(Coyoacan . 25)(AlvaroObregon . 24)))
-(set-distancia 'MagdalenaContreras '((CDMX . 27)(Iztapalapa . 25)(GustavoAMadero . 35)(MilpaAlta . 38)(Azcapotzalco . 30)(VenustianoCarranza . 30)(MiguelHidalgo . 23)(Coyoacan . 15)(AlvaroObregon . 16)))
-(set-distancia 'MilpaAlta '((CDMX . 39)(Iztapalapa . 32)(GustavoAMadero . 50)(MagdalenaContreras . 38)(Azcapotzalco . 51)(VenustianoCarranza . 42)(MiguelHidalgo . 49)(Coyoacan . 29)(AlvaroObregon . 44)))
-(set-distancia 'Azcapotzalco '((CDMX . 13)(Iztapalapa . 26)(GustavoAMadero . 15)(MagdalenaContreras . 30)(MilpaAlta . 51)(VenustianoCarranza . 15)(MiguelHidalgo . 8)(Coyoacan . 23)(AlvaroObregon . 18)))
-(set-distancia 'VenustianoCarranza '((CDMX . 7)(Iztapalapa . 11)(GustavoAMadero . 11)(MagdalenaContreras . 30)(MilpaAlta . 42)(Azcapotzalco . 15)(MiguelHidalgo . 15)(Coyoacan . 17)(AlvaroObregon . 20)))
-(set-distancia 'MiguelHidalgo '((CDMX . 9)(Iztapalapa . 21)(GustavoAMadero . 15)(MagdalenaContreras . 23)(MilpaAlta . 49)(Azcapotzalco . 8)(VenustianoCarranza . 15)(Coyoacan . 17)(AlvaroObregon . 13)))
-(set-distancia 'Coyoacan '((CDMX . 13)(Iztapalapa . 11)(GustavoAMadero . 25)(MagdalenaContreras . 15)(MilpaAlta . 29)(Azcapotzalco . 23)(VenustianoCarranza . 17)(MiguelHidalgo . 17)(AlvaroObregon . 12)))
-(set-distancia 'AlvaroObregon '((CDMX . 16)(Iztapalapa . 19)(GustavoAMadero . 24)(MagdalenaContreras . 16)(MilpaAlta . 44)(Azcapotzalco . 18)(VenustianoCarranza . 20)(MiguelHidalgo . 13)(Coyoacan . 12)))
-
+  ;Ciudades de Baja California
+  (set-distancia 'Tijuana '((Playas-de-Rosarito . 21)(Ensenada . 100)(Tecate . 50)))
+  (set-distancia 'Playas-de-Rosarito '((Tijuana . 21)(Ensenada . 84)))
+  (set-distancia 'Ensenada '((Tijuana . 100)(Playas-de-Rosarito . 84)(Tecate . 108)(Mexicali . 238)(Ciudad-Progreso . 221)(Ciudad-Guadalupe-Victoria . 284)(Punta-Prieta . 480)(Bahia-de-los-Angeles . 520)))
+  (set-distancia 'Tecate '((Tijuana . 50)(Ensenada . 108)(Ciudad-Progreso . 120)(Mexicali . 130)))
+  (set-distancia 'Ciudad-Progreso '((Ensenada . 221)(Tecate . 120)(Mexicali . 15)(Ciudad-Guadalupe-Victoria . 75)(Bahia-de-los-Angeles . 537)(Punta-Prieta . 485)))
+  (set-distancia 'Mexicali '((Ensenada . 238)(Tecate . 130)(Ciudad-Progreso . 15)(Ciudad-Guadalupe-Victoria . 62)))
+  (set-distancia 'Ciudad-Guadalupe-Victoria '((Ensenada . 284)(Mexicali . 62)(Bahia-de-los-Angeles . 501)(Punta-Prieta . 459)))
+  (set-distancia 'Punta-Prieta '((Ensenada . 480)(Ciudad-Progreso . 485)(Ciudad-Guadalupe-Victoria . 459)(Bahia-de-los-Angeles . 79)(Santo-Domingo . 85)))
+  (set-distancia 'Bahia-de-los-Angeles '((Ensenada . 520)(Ciudad-Progreso . 537)(Ciudad-Guadalupe-Victoria . 501)(Punta-Prieta . 79)(El-Arco . 165)))
+  (set-distancia 'Santo-Domingo '((Punta-Prieta . 85)(El-Arco . 108)(Benito-Juarez . 65)))
+  (set-distancia 'El-Arco '((Bahia-de-los-Angeles . 165)(Santo-Domingo . 108)(Benito-Juarez . 49)))
+  ;Ciudades de Baja California Sur
+  (set-distancia 'Bahia-Tortugas '((Benito-Juarez . 226)(San-Ignacio . 245)))
+  (set-distancia 'Benito-Juarez '((Bahia-Tortugas . 226)(San-Ignacio . 126)(El-Arco . 49)(Santo-Domingo . 65)))
+  (set-distancia 'San-Ignacio '((Bahia-Tortugas . 245)(Benito-Juarez . 126)(Mulege . 138)(Comondu . 246)(Ciudad-Insurgentes . 310)))
+  (set-distancia 'Mulege '((Comondu . 157)(Ciudad-Insurgentes . 250)(Loreto . 135)))
+  (set-distancia 'Comondu '((San-Ignacio . 246)(Mulege . 157)(Ciudad-Insurgentes . 109)(Loreto . 75)))
+  (set-distancia 'Loreto '((Mulege . 135)(Comondu . 75)(Ciudad-Insurgentes . 122)))
+  (set-distancia 'Ciudad-Insurgentes '((San-Ignacio . 310)(Mulege . 250)(Comondu . 109)(Loreto . 122)(La-Paz . 236)))
+  (set-distancia 'La-Paz '((Ciudad-Insurgentes . 236)(Todos-Santos . 82)(Santiago . 134)(La-Ribera . 136)))
+  (set-distancia 'Todos-Santos '((La-Paz . 82)(Cabo-San-Lucas . 78)(Santiago . 155)(La-Ribera . 156)))
+  (set-distancia 'Cabo-San-Lucas '((Santiago . 89)(Todos-Santos . 78)))
+  (set-distancia 'Santiago '((Cabo-San-Lucas . 89)(La-Paz . 134)(Todos-Santos . 155)(La-Ribera . 23)))
+  (set-distancia 'La-Ribera '((La-Paz . 136)(Santiago . 23)(Todos-Santos . 156)))
 
 ; *** Tablas de hash para recordar los valores           ***
 ; *** F y G que se vayan generando, según el             ***
@@ -47,16 +60,31 @@
   (defun set-coordenadas (x y) (setf (gethash x cooredenadas) y))
   (defun get-coordenadas (x) (gethash x cooredenadas)))
 
-(set-coordenadas 'CDMX '(19.43 99.13))
-(set-coordenadas 'Iztapalapa '(19.34 99.05))
-(set-coordenadas 'GustavoAMadero '(19.48 99.12))
-(set-coordenadas 'MagdalenaContreras '(19.31 99.24))
-(set-coordenadas 'MilpaAlta '(19.19 99.02))
-(set-coordenadas 'Azcapotzalco '(19.48 99.18))
-(set-coordenadas 'VenustianoCarranza '(19.43 99.09))
-(set-coordenadas 'MiguelHidalgo '(19.43 99.20))
-(set-coordenadas 'Coyoacan '(19.34 99.15))
-(set-coordenadas 'AlvaroObregon '(19.36 99.22))
+  ;Ciudades de Baja California
+  (set-coordenadas 'Tijuana '(32.51 117.05))
+  (set-coordenadas 'Playas-de-Rosarito '(32.36 117.06))
+  (set-coordenadas 'Ensenada '(31.86 116.59))
+  (set-coordenadas 'Tecate '(32.56 116.62))
+  (set-coordenadas 'Ciudad-Progreso '(32.58 115.58))
+  (set-coordenadas 'Mexicali '(32.60 115.46))
+  (set-coordenadas 'Ciudad-Guadalupe-Victoria '(32.29 115.10))
+  (set-coordenadas 'Punta-Prieta '(28.92 114.15))
+  (set-coordenadas 'Bahia-de-los-Angeles '(28.95 113.56))
+  (set-coordenadas 'Santo-Domingo '(25.49 111.92))
+  (set-coordenadas 'El-Arco '(28.02 113.39))
+  ;Ciudades de Baja California Sur
+  (set-coordenadas 'Bahia-Tortugas '(27.69 114.89))
+  (set-coordenadas 'Benito-Juarez '(27.88 113.78))
+  (set-coordenadas 'San-Ignacio '(27.28 112.87))
+  (set-coordenadas 'Mulege '(26.88 111.98))
+  (set-coordenadas 'Comondu '(26.06 111.84))
+  (set-coordenadas 'Loreto '(26.01 111.35))
+  (set-coordenadas 'Ciudad-Insurgentes '(25.26 111.77))
+  (set-coordenadas 'La-Paz '(24.14 110.31))
+  (set-coordenadas 'Todos-Santos '(23.44 110.22))
+  (set-coordenadas 'Cabo-San-Lucas '(22.89 109.91))
+  (set-coordenadas 'Santiago '(23.47 109.71))
+  (set-coordenadas 'La-Ribera '(23.59 109.58))
 
 (defun a-star (nodo-inicial nodo-final)                   ; algoritmo A*
   (set-meta nodo-final)                                   ; ¡OBJETO PARA GUARDAR EL NODO FINAL!
@@ -79,7 +107,6 @@
           (setf nodo-actual (first abierto))
           (setf nodo-actual (buscar-mejor (first abierto) ; ¡FUNCIÓN RECURSIVA PARA BUSCAR UN NODO CON MENOR F!
                                           (rest abierto))))
-      (format t "Procesando: ~a~%" nodo-actual)
 
       (setf abierto (remove nodo-actual abierto))         ; lo sacamos de abierto
       (push nodo-actual cerrado)                          ; y lo enviamos a cerrado
@@ -100,7 +127,6 @@
                 (calcular-g sucesor nodo-actual))         ; Calculamos el valor g del nodo sucesor
             (set-f sucesor
                 (calcular-f sucesor))                     ; Calculamos el valor f del nodo sucesor
-            (format t "    Nuevo nodo: ~a - ~a~%" sucesor (get-f sucesor))
             (setf abierto (coloca sucesor abierto))       ; Metemos el nodo sucesor a los abiertos
             (set-ancestro sucesor nodo-actual))           ; Guardamos nodo-actual como el ancestro de sucesor
 
@@ -114,8 +140,6 @@
                              (get-g nodo-actual)
                              (or (rest (assoc nodo-actual (get-distancia sucesor))) 99999999))
                           (get-f sucesor))))
-            (format t "    Revisando nodo: ~a - ~a~%" sucesor (get-f sucesor))
-            (format t "        Contra el nuevo: ~a~%" nuevo-f)
             (if (< nuevo-f (get-f sucesor))               ; En caso de que sea menor el nuevo-f que el anterior
                 (progn
                   (set-g sucesor (+ (- (get-g sucesor)    ; Actualizo el valor de g al de la nueva conexión
@@ -247,9 +271,9 @@
 (defun test ()
   (iniciar-cuenta-nodos)
   (format t "A-Estrella solution: ~s.~%"
-    (a-star 'GustavoAMadero 'MilpaAlta))
+    (a-star 'Tijuana 'Cabo-San-Lucas))
   (format t "Path-length: ~s.~%"
-    (get-f 'MilpaAlta))
+    (get-f 'Cabo-San-Lucas))
   (format t "~s nodes expanded.~%"
     (get-numero-nodos)))
 
