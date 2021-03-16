@@ -39,7 +39,7 @@ void setup() {
     ww + "x" + hh +
     "?access_token=pk.eyJ1IjoiZWFnbGV3aXRoZ2xhc3NlcyIsImEiOiJja21iZ2licmwxb3d0MndzOXJwcXRrODd4In0.qOhc-GeTEiJ5E2T9Nvujng";
   mapimg = loadImage(url, "jpg");
- ciudades= loadStrings("ciudades.txt");
+ ciudades= loadStrings("output.txt");
 
 
 
@@ -78,7 +78,8 @@ print(ciudades.length+"length, I:");
     }
     stroke(255, 0, 255);
     fill(255, 0, 255, 200);
-    ellipse(x, y, 10, 10);
+    ellipse(x, y, 1, 1);
     
   }
+  text(ciudades[0],-500,-200);
 }
