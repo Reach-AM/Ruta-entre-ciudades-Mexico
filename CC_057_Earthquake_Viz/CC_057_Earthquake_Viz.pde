@@ -32,6 +32,7 @@ float mercY(float lat) {
 
 
 void setup() {
+  //launch("astar.exe");
   size(1024, 512);
   // The clon and clat in this url are edited to be in the correct order.
   String url = "https://api.mapbox.com/styles/v1/mapbox/dark-v9/static/" +
@@ -59,7 +60,7 @@ print(ciudades.length+"length, I:");
     String[] datos = ciudades[i].split(",");
     print(i+" ");
     lat[i] = float(datos[0]);
-    lon[i] = float(datos[1]);
+    lon[i] = -float(datos[1]);
    
     float x = mercX(lon[i]) - cx;
     float y = mercY(lat[i]) - cy;
@@ -81,5 +82,5 @@ print(ciudades.length+"length, I:");
     ellipse(x, y, 1, 1);
     
   }
-  text(ciudades[0],-500,-200);
+  text("la distancia es " +ciudades[0]+" km.",-500,200);
 }
